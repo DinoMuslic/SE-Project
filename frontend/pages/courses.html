@@ -45,11 +45,11 @@
 <!-- Courses End -->
 
 <script>
-  displayAllCourses("backend/courses/all");
+  displayCourses();
 
   const search = document.getElementById("search");
   search.addEventListener("keyup", () => {
-    displayAllCourses("backend/courses/all");
+    displayCourses();
   });
 
   function saveCourseDetails(id, title, professor, department) {
@@ -62,9 +62,9 @@
     Utils.set_to_localstorage("course", courseDetails);
   }
 
-  function displayAllCourses(path) {
+  function displayCourses() {
     RestClient.get(
-      `${path}`,
+      "backend/courses/all",
       function (response) {
         console.log(response);
         // Sort the response by course title in ascending order
