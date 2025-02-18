@@ -1,61 +1,101 @@
-   <style>
-    @media (max-width: 400px) {
-            .searchbar {
-                width: 500px !important;
-            }
-        }
-   </style>
-   
-   <!-- Header Start -->
-     <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
-                    <nav aria-label="breadcrumb">
-                    </nav>
-                </div>
-            </div>
-        </div>
+<style>
+  @media (max-width: 400px) {
+    .searchbar {
+      width: 500px !important;
+    }
+  }
+</style>
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+        <nav aria-label="breadcrumb"></nav>
+      </div>
     </div>
-    <!-- Header End -->
+  </div>
+</div>
+<!-- Header End -->
 
+<input
+  id="search"
+  class="form-control mr-sm-2"
+  type="search"
+  name="search"
+  placeholder="Search"
+  aria-label="Search"
+  style="width: 25%; margin-left: 25px"
+/>
 
-    <!-- Courses Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
-                <h1 class="mb-5">Our Courses</h1>
-            </div>
-
-            <div id="courses-container" class="row g-4 justify-content-center">
-               
-            </div>
-        </div>
+<!-- Courses Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        Courses
+      </h6>
+      <h1 class="mb-5">Our Courses</h1>
     </div>
-    <!-- Courses End -->
 
-    <script>
-        RestClient.get(
-            "backend/courses/all",
-            function(response) {
-                // Sort the response by course title in ascending order
-                response.sort((a, b) => a.title.localeCompare(b.title));
+    <div id="courses-container" class="row g-4 justify-content-center"></div>
+  </div>
+</div>
+<!-- Courses End -->
 
-                // Select the container where courses will be displayed
-                const container = document.querySelector('#courses-container');
-                container.innerHTML = ''; // Clear existing content
-    
-                // Create a row to contain courses
-                let row = document.createElement('div');
-                row.classList.add('row');
+<script>
+  displayAllCourses("backend/courses/all");
 
-    
-                // Generate HTML for each course and append to the row
-                let delay = 0.1;
-                response.forEach(course => {
-                    const courseHTML = `
+  const search = document.getElementById("search");
+  search.addEventListener("keyup", () => {
+    displayAllCourses("backend/courses/all");
+  });
+
+  function saveCourseDetails(id, title, professor, department) {
+    const courseDetails = {
+      id: id,
+      title: title,
+      professor: professor,
+      department: department,
+    };
+    Utils.set_to_localstorage("course", courseDetails);
+  }
+
+  function displayAllCourses(path) {
+    RestClient.get(
+      `${path}`,
+      function (response) {
+        console.log(response);
+        // Sort the response by course title in ascending order
+        response.sort((a, b) => a.title.localeCompare(b.title));
+
+        // Select the container where courses will be displayed
+        const container = document.querySelector("#courses-container");
+        container.innerHTML = ""; // Clear existing content
+
+        // Create a row to contain courses
+        let row = document.createElement("div");
+        row.classList.add("row");
+
+        // Generate HTML for each course and append to the row
+        let delay = 0.1;
+        response.forEach((course) => {
+          if (
+            course.title
+              .toLowerCase()
+              .includes(`${search.value.toLowerCase()}`) ||
+            course.professor
+              .toLowerCase()
+              .includes(`${search.value.toLowerCase()}`) ||
+            course.department
+              .toLowerCase()
+              .includes(`${search.value.toLowerCase()}`) ||
+            course.faculty
+              .toLowerCase()
+              .includes(`${search.value.toLowerCase()}`)
+          ) {
+            const courseHTML = `
                         <div class="col-lg-4 col-md-6 wow fadeInUp mb-5" data-wow-delay="${delay}s">
                             <a href="#course">
                                 <div class="course-item bg-light" onclick="saveCourseDetails('${course.id}','${course.title}', '${course.professor}', '${course.department}')">
@@ -74,26 +114,23 @@
                             </a>
                         </div>
                         `;
-                    row.innerHTML += courseHTML;
+            row.innerHTML += courseHTML;
 
-                    delay += 0.1;
-                });
-    
-                // Append the row to the container
-                container.appendChild(row);
-            },
-            function(error) {
-                console.error("Error fetching courses:", error);
-            }
-        );
+            delay += 0.1;
+          }
+        });
 
-        function saveCourseDetails(id ,title, professor, department) {
-            const courseDetails = {
-                id: id,
-                title: title,
-                professor: professor,
-                department: department,
-            };
-            Utils.set_to_localstorage('course', courseDetails);
-        }
-    </script>
+        // Append the row to the container
+        container.appendChild(row);
+      },
+      function (error) {
+        console.error("Error fetching courses:", error);
+      }
+    );
+  }
+
+  function removeAllCourses() {
+    const container = document.querySelector("#courses-container");
+    container.innerHTML = "";
+  }
+</script>
