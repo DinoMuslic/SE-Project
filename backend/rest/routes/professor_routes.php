@@ -45,6 +45,24 @@ Flight::group('/professors', function () {
         Flight::json($professor, 200);
     });
 
+    Flight::route('GET /contact', function() {
+        $request = Flight::request();
+        
+        // Retrieve query parameters
+        $first_name = $request->query['first_name'] ?? null;
+
+        //Validate input (optional)
+        if (!$first_name) {
+            Flight::json(["error" => "Missing first_name"], 400);
+            return;
+        }
+
+        // Call the service with parameters
+        $professor = Flight::get('professor_service')->get_contact_info($first_name);
+
+        // Return response
+        Flight::json($professor, 200);
+    });
 
     /**
      * @OA\Get(

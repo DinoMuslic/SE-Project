@@ -4,7 +4,13 @@
   <div class="container">
     <div class="d-flex justify-content-between">
       <h1 id="course-title" class="text-primary"></h1>
-      <h3 id="course-professor" class="text-primary"></h3>
+      <div>
+        <h3 id="course-professor" class="text-primary"></h3>
+        <h4 id="professor-email" style="font-size: 18px"></h4>
+        <h4 id="professor-faculty" style="font-size: small"></h4>
+        <h4 id="professor-department" style="font-size: small"></h4>
+        <button id="contactInfo" class="btn-primary">Contact Info</button>
+      </div>
     </div>
 
     <br /><br />
@@ -157,6 +163,30 @@
   </div>
 
   <script>
+    let contactInfoBtn = document.getElementById("contactInfo");
+    contactInfoBtn.addEventListener("click", () => {
+      getContactInfo();
+    });
+
+    async function getContactInfo() {
+      let arr = Utils.get_from_localstorage("course").professor.split(" ");
+      let response = await fetch(
+        `http://localhost/SEProject/backend/professors/contact?first_name=${arr[0]}&last_name=${arr[1]}`,
+        {
+          method: "GET",
+        }
+      );
+
+      let json = await response.json();
+
+      let professorEmail = document.getElementById("professor-email");
+      professorEmail.innerHTML = json[0]["email"];
+      // let professorFaculty = document.getElementById("professor-faculty");
+      // professorFaculty.innerHTML = json[0]["faculty"];
+      // let professorDepartmenr = document.getElementById("professor-department");
+      // professorDepartmenr.innerHTML = json[0]["department"];
+    }
+
     if (
       Utils.get_from_localstorage("user").first_name +
         " " +

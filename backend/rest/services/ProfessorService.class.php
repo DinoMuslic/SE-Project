@@ -48,4 +48,8 @@ class ProfessorService {
     public function get_limited_professors($limit) {
         return $this->professor_dao->get_professors_paginated(0, $limit, '', 'id', 'ASC')['data'];
     }
+
+    public function get_contact_info($first_name) {
+        return $this->professor_dao->get_contact_info($first_name);
+    }
 }

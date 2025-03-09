@@ -71,4 +71,9 @@ class ProfessorDao extends BaseDao {
         $query = "SELECT * FROM professors";
         return  $this->query($query, []);
     }
+
+    public function get_contact_info($first_name) {
+        $query = "SELECT email, faculty, department FROM professors WHERE first_name LIKE :first_name";
+        return $this->query($query, ['first_name' => $first_name]);
+    }
 }
