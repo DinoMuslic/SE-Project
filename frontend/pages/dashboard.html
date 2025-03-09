@@ -1,10 +1,12 @@
-<br><br>
+<br /><br />
 <div class="container-fluid px-4">
   <div class="row">
     <div class="col-xl-5 col-md-6">
       <div class="card text-white mb-4">
         <div class="card-body text-primary fs-3">Tables</div>
-        <div class="card-footer d-flex align-items-center justify-content-between">
+        <div
+          class="card-footer d-flex align-items-center justify-content-between"
+        >
           <button
             class="btn btn-primary"
             type="button"
@@ -52,7 +54,7 @@
     </div>
   </div>
 
-  <br>
+  <br />
 
   <div class="card mb-4" id="courses-table">
     <div class="card-header text-primary">
@@ -81,7 +83,7 @@
     </div>
   </div>
 
-  <br>
+  <br />
 
   <div class="card mb-4" id="professors-table">
     <div class="card-header text-primary">
@@ -112,7 +114,7 @@
     </div>
   </div>
 
-  <br>
+  <br />
 
   <div class="card mb-4" id="students-table">
     <div class="card-header text-primary">
@@ -142,7 +144,7 @@
     </div>
   </div>
 
-  <br>
+  <br />
 
   <!-- <div class="card mb-4" id="books-table">
     <div class="card-header text-primary">
@@ -171,9 +173,8 @@
     </div>
   </div> -->
 
-  <br>
+  <br />
 </div>
-   
 
 <div
   class="modal fade"
@@ -203,6 +204,7 @@
               class="form-control"
               name="title"
               id="title"
+              required
             />
           </div>
           <div class="mb-3">
@@ -212,6 +214,7 @@
               class="form-control"
               name="faculty"
               id="faculty"
+              required
             />
           </div>
           <div class="mb-3">
@@ -221,6 +224,7 @@
               class="form-control"
               name="department"
               id="department"
+              required
             />
           </div>
           <div class="mb-3">
@@ -230,16 +234,12 @@
               class="form-control"
               name="professor"
               id="professor"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="image" class="col-form-label">Image:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="image"
-              id="image"
-            />
+            <input type="text" class="form-control" name="image" id="image" />
           </div>
         </div>
         <div class="modal-footer">
@@ -285,6 +285,7 @@
               class="form-control"
               name="first_name"
               id="first_name"
+              required
             />
           </div>
           <div class="mb-3">
@@ -294,16 +295,12 @@
               class="form-control"
               name="last_name"
               id="last_name"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="email" class="col-form-label">Email:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="email"
-              id="email"
-            />
+            <input type="text" class="form-control" name="email" id="email" />
           </div>
           <div class="mb-3">
             <label for="password" class="col-form-label">Password:</label>
@@ -312,6 +309,7 @@
               class="form-control"
               name="password"
               id="password"
+              required
             />
           </div>
           <div class="mb-3">
@@ -321,6 +319,7 @@
               class="form-control"
               name="faculty"
               id="faculty"
+              required
             />
           </div>
           <div class="mb-3">
@@ -330,24 +329,23 @@
               class="form-control"
               name="department"
               id="department"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="salary" class="col-form-label">Salary:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="salary"
-              id="salary"
-            />
+            <input type="text" class="form-control" name="salary" id="salary" />
           </div>
           <div class="mb-3">
-            <label for="isAdmin" class="col-form-label">Is admin (No - 0 | Yes - 1):</label>
+            <label for="isAdmin" class="col-form-label"
+              >Is admin (No - 0 | Yes - 1):</label
+            >
             <input
               type="text"
               class="form-control"
               name="isAdmin"
               id="isAdmin"
+              required
             />
           </div>
         </div>
@@ -407,12 +405,7 @@
           </div>
           <div class="mb-3">
             <label for="email" class="col-form-label">Email:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="email"
-              id="email"
-            />
+            <input type="text" class="form-control" name="email" id="email" />
           </div>
 
           <div class="mb-3">
@@ -424,7 +417,7 @@
               id="password"
             />
           </div>
-          
+
           <div class="mb-3">
             <label for="faculty" class="col-form-label">Faculty:</label>
             <input
@@ -444,7 +437,9 @@
             />
           </div>
           <div class="mb-3">
-            <label for="enrolment_year" class="col-form-label">Year of enrolment:</label>
+            <label for="enrolment_year" class="col-form-label"
+              >Year of enrolment:</label
+            >
             <input
               type="text"
               class="form-control"
@@ -551,34 +546,32 @@
 </div> -->
 
 <script>
-  $('button[data-bs-toggle]').click(function() {
-    var target = $(this).attr('data-bs-target');
-    $(target + ' form').trigger('reset');
+  $("button[data-bs-toggle]").click(function () {
+    var target = $(this).attr("data-bs-target");
+    $(target + " form").trigger("reset");
   });
 
-  $("document").ready(function() {
+  $("document").ready(function () {
     CourseService.reload_courses_datatable();
-      FormValidation.validate("#add-course-form", {}, function (data) {
-        Utils.block_ui("#add-course-modal");
-        $('#add-course-modal button[type="cancel"]').trigger("click");
-        $.post(Constants.get_api_base_url() + "backend/courses/add", data)
-          .done(function (data) {
-            Utils.unblock_ui("#add-course-modal");
-            $("#add-course-modal").modal("toggle");
-            toastr.success("course successfuly added.");
-            CourseService.reload_courses_datatable();
-          })
-          .fail(function (xhr) {
-            toastr.error("Error");
-          });
-      });
-
-    
+    FormValidation.validate("#add-course-form", {}, function (data) {
+      Utils.block_ui("#add-course-modal");
+      $('#add-course-modal button[type="cancel"]').trigger("click");
+      $.post(Constants.get_api_base_url() + "backend/courses/add", data)
+        .done(function (data) {
+          Utils.unblock_ui("#add-course-modal");
+          $("#add-course-modal").modal("toggle");
+          toastr.success("course successfuly added.");
+          CourseService.reload_courses_datatable();
+        })
+        .fail(function (xhr) {
+          toastr.error("Error");
+        });
+    });
 
     ProfessorService.reload_professors_datatable();
     FormValidation.validate("#add-professor-form", {}, function (data) {
       Utils.block_ui("#add-professor-modal");
-      $('#add-professor-modal button[type="cancel"]').trigger("click")
+      $('#add-professor-modal button[type="cancel"]').trigger("click");
       $.post(Constants.get_api_base_url() + "backend/professors/add", data)
         .done(function (data) {
           Utils.unblock_ui("#add-professor-modal");
@@ -596,7 +589,7 @@
     StudentService.reload_students_datatable();
     FormValidation.validate("#add-student-form", {}, function (data) {
       Utils.block_ui("#add-student-modal");
-      $('#add-student-modal button[type="cancel"]').trigger("click")
+      $('#add-student-modal button[type="cancel"]').trigger("click");
 
       $.post(Constants.get_api_base_url() + "backend/students/add", data)
         .done(function (data) {
@@ -616,7 +609,7 @@
     //   $('#add-book-modal button[type="cancel"]').trigger("click")
     //   $.post(Constants.get_api_base_url() + "backend/books/add", data)
     //     .done(function (data) {
-          
+
     //      Utils.unblock_ui("#add-book-modal");
     //       $("#add-book-modal").modal("toggle");
     //       toastr.success("book successfuly added.");
@@ -628,10 +621,9 @@
     // });
   });
 
-  IsAdmin.validate(function(isAdmin) {
-            if (!isAdmin) {
-              window.location.href = "../frontend";
-            }
-        });
+  IsAdmin.validate(function (isAdmin) {
+    if (!isAdmin) {
+      window.location.href = "../frontend";
+    }
+  });
 </script>
-
