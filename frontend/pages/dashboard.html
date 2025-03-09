@@ -37,7 +37,7 @@
             Add Student
           </button>
 
-          <!-- <button
+          <button
             class="btn btn-primary"
             type="button"
             class="btn btn-info"
@@ -45,7 +45,7 @@
             data-bs-target="#add-book-modal"
           >
             Add Book
-          </button> -->
+          </button>
           <div class="small text-white">
             <i class="fas fa-angle-right"></i>
           </div>
@@ -146,7 +146,7 @@
 
   <br />
 
-  <!-- <div class="card mb-4" id="books-table">
+  <div class="card mb-4" id="books-table">
     <div class="card-header text-primary">
       <i class="fas fa-table me-1"></i>
       BOOKS TABLE
@@ -164,14 +164,13 @@
               <th data-name="author">Author</th>
               <th data-name="genre">Genre</th>
               <th data-name="publication_year">Year of Publication</th>
-              <th data-name="pdf_link">PDF Link</th>
               <th data-name="action">Action</th>
             </tr>
           </thead>
         </table>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <br />
 </div>
@@ -463,7 +462,7 @@
   </div>
 </div>
 
-<!-- <div
+<div
   class="modal fade"
   id="add-book-modal"
   tabindex="-1"
@@ -486,33 +485,20 @@
           <input type="hidden" name="id" id="id" />
           <div class="mb-3">
             <label for="title" class="col-form-label">Title:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              id="title"
-            />
+            <input type="text" class="form-control" name="title" id="title" />
           </div>
           <div class="mb-3">
             <label for="author" class="col-form-label">Author:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="author"
-              id="author"
-            />
+            <input type="text" class="form-control" name="author" id="author" />
           </div>
           <div class="mb-3">
             <label for="genre" class="col-form-label">Genre:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="genre"
-              id="genre"
-            />
+            <input type="text" class="form-control" name="genre" id="genre" />
           </div>
           <div class="mb-3">
-            <label for="publication_year" class="col-form-label">Year of Publication:</label>
+            <label for="publication_year" class="col-form-label"
+              >Year of Publication:</label
+            >
             <input
               type="text"
               class="form-control"
@@ -521,13 +507,14 @@
             />
           </div>
           <div class="mb-3">
-            <label for="pdf_link" class="col-form-label">PDF Link:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="pdf_link"
-              id="pdf_link"
-            />
+            <label for="text" class="col-form-label">Text:</label>
+            <textarea
+              for="content"
+              name="content"
+              id="content"
+              rows="10"
+              cols="50"
+            ></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -543,7 +530,7 @@
       </form>
     </div>
   </div>
-</div> -->
+</div>
 
 <script>
   $("button[data-bs-toggle]").click(function () {
@@ -603,22 +590,21 @@
         });
     });
 
-    // BookService.reload_books_datatable();
-    // FormValidation.validate("#add-book-form", {}, function (data) {
-    //   Utils.block_ui("#add-book-modal");
-    //   $('#add-book-modal button[type="cancel"]').trigger("click")
-    //   $.post(Constants.get_api_base_url() + "backend/books/add", data)
-    //     .done(function (data) {
-
-    //      Utils.unblock_ui("#add-book-modal");
-    //       $("#add-book-modal").modal("toggle");
-    //       toastr.success("book successfuly added.");
-    //       BookService.reload_books_datatable();
-    //     })
-    //     .fail(function (xhr) {
-    //       toastr.error("Error");
-    //     });
-    // });
+    BookService.reload_books_datatable();
+    FormValidation.validate("#add-book-form", {}, function (data) {
+      Utils.block_ui("#add-book-modal");
+      $('#add-book-modal button[type="cancel"]').trigger("click");
+      $.post(Constants.get_api_base_url() + "backend/books/add", data)
+        .done(function (data) {
+          Utils.unblock_ui("#add-book-modal");
+          $("#add-book-modal").modal("toggle");
+          toastr.success("book successfuly added.");
+          BookService.reload_books_datatable();
+        })
+        .fail(function (xhr) {
+          toastr.error("Error");
+        });
+    });
   });
 
   IsAdmin.validate(function (isAdmin) {

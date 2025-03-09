@@ -17,7 +17,7 @@ class BookDao extends BaseDao {
                   WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
                         LOWER(genre) LIKE CONCAT('%', :search, '%') OR
                         LOWER(publication_year) LIKE CONCAT('%', :search, '%') OR
-                        LOWER(pdf_link) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(content) LIKE CONCAT('%', :search, '%') OR
                         LOWER(author) LIKE CONCAT('%', :search, '%');";
         
         return $this->query_unique($query, [
@@ -31,7 +31,7 @@ class BookDao extends BaseDao {
                   WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
                         LOWER(genre) LIKE CONCAT('%', :search, '%') OR
                         LOWER(publication_year) LIKE CONCAT('%', :search, '%') OR
-                        LOWER(pdf_link) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(content) LIKE CONCAT('%', :search, '%') OR
                         LOWER(author) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
@@ -51,13 +51,13 @@ class BookDao extends BaseDao {
     }
 
     public function edit_book($id, $book) {
-        $query = "UPDATE books SET title = :title, genre = :genre, publication_year = :publication_year, pdf_link = :pdf_link, author = :author
+        $query = "UPDATE books SET title = :title, genre = :genre, publication_year = :publication_year, content = :content, author = :author
                   WHERE id = :id";
         $this->execute($query, [
             'title' => $book['title'],
             'genre' => $book['genre'],
             'publication_year' => $book['publication_year'],
-            'pdf_link' => $book['pdf_link'],
+            'content' => $book['content'],
             'author' => $book['author'],
             'id' => $id
         ]);
