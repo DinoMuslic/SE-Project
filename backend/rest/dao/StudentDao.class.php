@@ -70,4 +70,9 @@ class StudentDao extends BaseDao {
         $query = "SELECT * FROM students";
         return  $this->query($query, []);
     }
+
+    public function get_all_emails() {
+        $guery = "SELECT email FROM students";
+        return $this->query($guery, []);
+    }
 }

@@ -1,116 +1,250 @@
 <script>
-  let reloadBtns = document.querySelectorAll('.reloadBtn');
-    for(let i = 0; i < reloadBtns.length; i++) {
-        reloadBtns[i].addEventListener('click', () => {
-            setTimeout(() => {
-                location.reload();
-            }, 10);
-        });
-    }
+  let reloadBtns = document.querySelectorAll(".reloadBtn");
+  for (let i = 0; i < reloadBtns.length; i++) {
+    reloadBtns[i].addEventListener("click", () => {
+      setTimeout(() => {
+        location.reload();
+      }, 10);
+    });
+  }
 </script>
-  <!-- Template Main CSS File -->
-  <link href="css/login-register.css" rel="stylesheet">
+<!-- Template Main CSS File -->
+<link href="css/login-register.css" rel="stylesheet" />
 
-  <style>
-    #log-reg-container {
-      background-image: url("img/education_backgound2.jpg");
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-
-    }
-  </style>
+<style>
+  #log-reg-container {
+    background-image: url("img/education_backgound2.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
 
 <body class="bg">
-
   <main>
     <div id="log-reg-container" class="container-fluid h-100">
       <div class="container">
-
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <section
+          class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+        >
           <div class="container">
             <div class="row justify-content-center">
-              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-  
+              <div
+                class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center"
+              >
                 <div class="d-flex justify-content-center py-4">
-                  <a href="#home" class="reloadBtn logo d-flex align-items-center w-auto">
-                    <img src="img/education.ico" alt="">
+                  <a
+                    href="#home"
+                    class="reloadBtn logo d-flex align-items-center w-auto"
+                  >
+                    <img src="img/education.ico" alt="" />
                     <span class="d-none d-lg-block">Register</span>
                   </a>
                 </div>
-  
+
                 <div class="card mb-3">
-  
                   <div class="card-body">
-  
                     <div class="pt-4 pb-2">
-                      <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                      <p class="text-center small">Enter your personal details to create account</p>
+                      <h5 class="card-title text-center pb-0 fs-4">
+                        Create an Account
+                      </h5>
+                      <p class="text-center small">
+                        Enter your personal details to create account
+                      </p>
                     </div>
-  
-                    <form id="register-form" class="row g-3 needs-validation" method="post" novalidate>
+
+                    <form
+                      id="register-form"
+                      class="row g-3 needs-validation"
+                      method="post"
+                      novalidate
+                    >
                       <input type="hidden" name="id" id="id" />
                       <div class="col-12">
-                        <label for="yourFirstName" class="form-label">Your First Name</label>
-                        <input type="text" name="first_name" class="form-control" id="yourFirstName" required>
-                        <div class="invalid-feedback">Please, enter your name!</div>
+                        <label for="yourFirstName" class="form-label"
+                          >Your First Name</label
+                        >
+                        <input
+                          type="text"
+                          name="first_name"
+                          class="form-control"
+                          id="yourFirstName"
+                          required
+                        />
                       </div>
 
                       <div class="col-12">
-                        <label for="yourLastName" class="form-label">Your Last Name</label>
-                        <input type="text" name="first_name" class="form-control" id="yourLastName" required>
-                        <div class="invalid-feedback">Please, enter your name!</div>
+                        <label for="yourLastName" class="form-label"
+                          >Your Last Name</label
+                        >
+                        <input
+                          type="text"
+                          name="first_name"
+                          class="form-control"
+                          id="yourLastName"
+                          required
+                        />
                       </div>
-  
+
                       <div class="col-12">
-                        <label for="yourEmail" class="form-label">Your Email</label>
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        <label for="yourEmail" class="form-label"
+                          >Your Email</label
+                        >
+                        <input
+                          type="email"
+                          name="email"
+                          class="form-control"
+                          id="yourEmail"
+                          required
+                        />
                       </div>
-  
+
                       <div class="col-12">
-                        <label for="yourPassword" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="yourPassword" required>
-                        <div class="invalid-feedback">Please enter your password!</div>
+                        <label for="yourPassword" class="form-label"
+                          >Password</label
+                        >
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="yourPassword"
+                          required
+                        />
                       </div>
-  
-                
+
                       <div class="col-12">
-                        <button id="submit-btn" class="btn btn-primary w-100" type="submit">Create Account</button>
+                        <label for="yourPassword" class="form-label"
+                          >Confirm Password</label
+                        >
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="yourConfirmPassword"
+                          required
+                        />
+                      </div>
+
+                      <div class="col-12">
+                        <button
+                          id="submit-btn"
+                          class="btn btn-primary w-100"
+                          type="submit"
+                        >
+                          Create Account
+                        </button>
                       </div>
                       <div class="col-12">
-                        <p class="small mb-0">Already have an account? <a class="reloadBtn" href="#login">Log in</a></p>
+                        <p class="small mb-0">
+                          Already have an account?
+                          <a class="reloadBtn" href="#login">Log in</a>
+                        </p>
                       </div>
                     </form>
-  
                   </div>
                 </div>
               </div>
             </div>
           </div>
-  
         </section>
       </div>
     </div>
-    
   </main>
 
+  <script>
+    formElemets = document
+      .getElementById("register-form")
+      .getElementsByTagName("input");
 
-<script>
-  $("#submit-btn").click((e) => {
-    e.preventDefault();
-    var formData = {
-        id: "",
-        first_name: $("#yourFirstName").val(),
-        last_name: $("#yourLastName").val(),
-        email: $("#yourEmail").val(),
-        password: $("#yourPassword").val(),
-        faculty: "not set",
-        department: "not set",
-        enrolment_year: new Date().getFullYear(),
-    };
-    //console.log(formData);
-    RegistrationService.registerStudent(formData);
-  })
-</script>
+    $("#submit-btn").click(async (e) => {
+      e.preventDefault();
+
+      if (
+        validateFormInputs() &&
+        checkPasswordMatching() &&
+        !(await isEmailAlreadyInUse($("#yourEmail").val()))
+      ) {
+        var formData = {
+          id: "",
+          first_name: $("#yourFirstName").val(),
+          last_name: $("#yourLastName").val(),
+          email: $("#yourEmail").val(),
+          password: $("#yourPassword").val(),
+          faculty: "not set",
+          department: "not set",
+          enrolment_year: new Date().getFullYear(),
+        };
+        RegistrationService.registerStudent(formData);
+      }
+    });
+
+    function validateFormInputs() {
+      for (let input of formElemets) {
+        if (input.value === "" && input.name !== "id") {
+          toastr.error("An error occured!");
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function validatePassword(password) {
+      if (password.length < 8) {
+        toastr.error("Invalid password!");
+        return false;
+      }
+
+      let uppercaseCounter = 0;
+      let numberCounter = 0;
+      for (let i = 0; i < password.length; i++) {
+        if (password[i] >= "A" && password[i] <= "Z") uppercaseCounter++;
+        if (password[i] >= "0" && password[i] <= "9") numberCounter++;
+      }
+
+      if (uppercaseCounter === 0 || numberCounter === 0) {
+        toastr.error("Invalid password!");
+        return false;
+      }
+
+      return true;
+    }
+
+    function checkPasswordMatching() {
+      let password = document.getElementById("yourPassword");
+      let confirmPassword = document.getElementById("yourConfirmPassword");
+
+      if (!validatePassword(password.value)) return false;
+
+      if (password.value !== confirmPassword.value) {
+        toastr.error("Passwords do not match!");
+        return false;
+      }
+
+      return true;
+    }
+
+    async function isEmailAlreadyInUse(passedEmail) {
+      let response = await fetch(
+        "http://localhost/SEProject/backend/students/emails",
+        {
+          method: "GET",
+        }
+      );
+
+      let json = await response.json();
+
+      for (let i = 0; i < json.length; i++) {
+        if (passedEmail === json[i]["email"]) {
+          console.log(passedEmail, json[i]["email"]);
+          toastr.error(
+            "This email is already associated with an existing account"
+          );
+          return true;
+        }
+      }
+
+      return false;
+    }
+  </script>
+</body>

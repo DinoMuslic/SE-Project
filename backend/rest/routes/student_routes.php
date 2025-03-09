@@ -28,6 +28,15 @@ Flight::group('/students', function () {
         Flight::json($data, 200);
     });
 
+    Flight::route('GET /emails', function() {
+        
+        // Count query
+        $data = Flight::get('student_service')->get_all_emails();
+    
+        // Response
+        Flight::json($data, 200);
+    });
+
     /**
      * @OA\Get(
      *      path="/students/student",

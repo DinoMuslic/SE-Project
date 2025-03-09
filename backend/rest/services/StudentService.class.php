@@ -44,4 +44,8 @@ class StudentService {
     public function get_all_students() {
         return $this->student_dao->get_all_students();
     }
+
+    public function get_all_emails() {
+        return $this->student_dao->get_all_emails();
+    }
 }

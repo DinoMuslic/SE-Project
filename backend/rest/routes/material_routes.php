@@ -130,22 +130,25 @@ Flight::group('/materials', function () {
      * )
      */
 
-    Flight::route('POST /add', function() {
+     Flight::route('POST /add', function() {
         $payload = Flight::request()->data->getData();
     
-        if($payload['title'] == NULL || $payload['title'] == '') {
-            Flight::halt(500, "Title field is missing!");
-        }
-    
-        if($payload['id'] != null && $payload['id'] != '') {
+        if ($payload['id'] != null && $payload['id'] != '') {
             $material = Flight::get('material_service')->edit_material($payload);
+            if (!$material) {
+                Flight::halt(500, "Failed to edit material!");
+            }
         } else {
             unset($payload['id']);
             $material = Flight::get('material_service')->add_material($payload);
+            if (!$material) {
+                Flight::halt(500, "Failed to add material!");
+            }
         }
     
-        Flight::json(['message' => "You have succesfully added the material", 'data' => $material]);
+        Flight::json(['message' => "Success", 'data' => $material]);
     });
+    
 
     /**
      * @OA\Delete(
