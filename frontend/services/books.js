@@ -19,7 +19,6 @@ var BookService = {
     RestClient.get("backend/books/" + book_id, function (data) {
       $("#add-book-modal").modal("toggle");
       $("#add-book-form input[name='id']").val(data.id);
-      $("#add-book-form input[name='course_id']").val(data.course_id);
       $("#add-book-form input[name='title']").val(data.title);
       $("#add-book-form input[name='author']").val(data.author);
       $("#add-book-form input[name='genre']").val(data.genre);

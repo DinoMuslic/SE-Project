@@ -1,103 +1,188 @@
+<style>
+  #profile-container {
+    background-image: url("img/education_backgound.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
 
-    <style>
-      #profile-container {
-        background-image: url("img/education_backgound.jpg");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-
-      }
-    </style>
-  <div id="profile-container" class="container-fluid h-100">
-    <br><br><br><br><br><br>
-    <section style="margin-left: 50px;" class="section profile">
-      <div class="row">
-          <div class="col-xl-4">
-
-          <div style="opacity: 0.95;" class="card">
-              <div class="card-body profile-card pt-4 d-flex flex-column align-items-center justify-content-around">
-                  <img src="img/user1.png" alt="Profile" class="rounded-circle">
-                  <hr>
-                  <h1 id="username"></h1>
-                  <hr>
-                  <h2 id="department"></h2>
-              </div>
+<div id="profile-container" class="container-fluid h-100">
+  <br /><br /><br /><br /><br /><br />
+  <section style="margin-left: 50px" class="section profile">
+    <div class="row">
+      <div class="col-xl-4">
+        <div style="opacity: 0.95" class="card">
+          <div
+            class="card-body profile-card pt-4 d-flex flex-column align-items-center justify-content-around"
+          >
+            <img src="img/user1.png" alt="Profile" class="rounded-circle" />
+            <hr />
+            <h1 id="username"></h1>
+            <hr />
+            <h2 id="department"></h2>
           </div>
-
-          </div>
-
-          <div class="col-xl-6">
-
-          <div style="opacity: 0.95;" class="card">
-              <div class="card-body pt-3">
-              <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered">
-
-                  <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                  </li>
-
-              </ul>
-              <div class="tab-content pt-2">
-
-                  <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  
-                  <h5 class="card-title">Profile Details</h5>
-
-                  <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                      <div id="full_name" class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Email</div>
-                      <div id="email" class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Faculty</div>
-                      <div id="faculty" class="col-lg-9 col-md-8">Random Faculty</div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Department</div>
-                      <div id="user_department" class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  </div>
-
-              </div><!-- End Bordered Tabs -->
-
-              </div>
-          </div>
-
-          </div>
+        </div>
       </div>
+
+      <div class="col-xl-6">
+        <div style="opacity: 0.95" class="card">
+          <div class="card-body pt-3">
+            <ul class="nav nav-tabs nav-tabs-bordered">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-overview"
+                >
+                  Overview
+                </button>
+              </li>
+
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editProfileModal"
+                >
+                  Edit Profile
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content pt-2">
+              <div
+                class="tab-pane fade show active profile-overview"
+                id="profile-overview"
+              >
+                <h5 class="card-title">Profile Details</h5>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Full Name</div>
+                  <div id="full_name" class="col-lg-9 col-md-8"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Email</div>
+                  <div id="email" class="col-lg-9 col-md-8"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Faculty</div>
+                  <div id="faculty" class="col-lg-9 col-md-8">
+                    Random Faculty
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Department</div>
+                  <div id="user_department" class="col-lg-9 col-md-8"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-    
+</div>
+
+<!-- Edit Profile Modal -->
+<div
+  class="modal fade"
+  id="editProfileModal"
+  tabindex="-1"
+  aria-labelledby="editProfileModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm">
+          <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="first_name" required />
+          </div>
+          <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="last_name" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
   </div>
-  
+</div>
 
-    
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/nat.js"></script>
 
-    <!-- Vendor JS Files -->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function () {
+    let user = Utils.get_from_localstorage("user");
 
+    function populateProfile() {
+      $("#username").text(user.first_name + " " + user.last_name);
+      $("#full_name").text(user.first_name + " " + user.last_name);
+      $("#department").text(user.department.toUpperCase());
+      $("#email").text(user.email);
+      $("#faculty").text(user.faculty);
+      $("#user_department").text(user.department);
+    }
 
-    <script src="js/nat.js"></script>
+    populateProfile();
 
-    <script>
-      $(document).ready(function() {
-        // Get the user's details from the local storage
-        let user = Utils.get_from_localstorage("user");
-        // Set the user's details in the profile page
-        $("#username").text(user.first_name + " " + user.last_name);
-        $("#full_name").text(user.first_name + " " + user.last_name);
-        $("#department").text(user.department.toUpperCase());
-        $("#full_name").text(user.name);
-        $("#email").text(user.email);
-        $("#faculty").text(user.faculty);
-        $("#user_department").text(user.department);
-      });
-    </script>
+    function saveProfileChanges() {
+      let data = {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        faculty: user.faculty,
+        department: user.department,
+        enrolment_year: user.enrolment_year,
+        email: user.email,
+      };
+
+      $.post(Constants.get_api_base_url() + "backend/students/add", data)
+        .done(function (data) {
+          toastr.success("Profile successfully edited.");
+          $("#editProfileModal").modal("hide");
+        })
+        .fail(function (xhr) {
+          toastr.error("Error");
+        });
+    }
+
+    $(document).on("submit", "#editProfileForm", function (e) {
+      e.preventDefault();
+
+      user.first_name = $("#first_name").val();
+      user.last_name = $("#last_name").val();
+
+      console.log("form submitted!");
+
+      Utils.set_to_localstorage("user", user);
+      populateProfile();
+      saveProfileChanges();
+    });
+
+    $("#editProfileModal").on("show.bs.modal", function () {
+      $("#first_name").val(user.first_name);
+      $("#last_name").val(user.last_name);
+    });
+
+    $(document).on("hidden.bs.modal", "#editProfileModal", function () {
+      $(".modal-backdrop").remove();
+      $("body").removeClass("modal-open");
+    });
+  });
+</script>

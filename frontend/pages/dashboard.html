@@ -164,6 +164,7 @@
               <th data-name="author">Author</th>
               <th data-name="genre">Genre</th>
               <th data-name="publication_year">Year of Publication</th>
+              <th data-name="content">Content</th>
               <th data-name="action">Action</th>
             </tr>
           </thead>
@@ -570,8 +571,6 @@
           toastr.error("Error");
         });
     });
-
-    console.log("Api base url: " + Constants.get_api_base_url());
 
     StudentService.reload_students_datatable();
     FormValidation.validate("#add-student-form", {}, function (data) {
