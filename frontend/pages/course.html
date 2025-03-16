@@ -3,7 +3,10 @@
 <body>
   <div class="container">
     <div class="d-flex justify-content-between">
-      <h1 id="course-title" class="text-primary"></h1>
+      <div>
+        <h1 id="course-title" class="text-primary"></h1>
+        <button id="enroll-btn" class="btn-primary">Enroll</button>
+      </div>
       <div>
         <h3 id="course-professor" class="text-primary"></h3>
         <h4 id="professor-email" style="font-size: 18px"></h4>
@@ -49,7 +52,10 @@
       <div id="lectures"></div>
     </div>
 
-    <br />
+    <br /> <br> <br> <br> <br>
+
+    <h3 class="text-primary">Enrolled Students</h3>
+    <table id="tbl"></table>
 
     <button
       id="addLecture"
@@ -163,6 +169,154 @@
   </div>
 
   <script>
+    
+
+    $(document).ready(function() {
+      // First check enrollment status
+      checkEnrollmentStatus().then(() => {
+        // Then load other data after we know enrollment status
+        getEnrolledStudents();
+        fetchAndDisplayAnnouncements();
+      });
+    });
+
+    let enrollBtn = document.getElementById("enroll-btn");
+    enrollBtn.addEventListener("click", () => {
+      enrollStudent();
+    });
+
+    
+    let table = document.getElementById("tbl");
+    async function getEnrolledStudents() {
+      let id = Utils.get_from_localstorage("course").id;
+      let response = await fetch(
+        `http://localhost/SEProject/backend/enrollments/${id}`,
+        {
+          method: "GET",
+        }
+      );
+
+      let json = await response.json();
+
+      table.innerHTML = "";
+      table.className = "table table-striped";
+
+      let thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Faculty</th>
+          <th scope="col">Department</th>
+        </tr>
+      `;
+      table.appendChild(thead);
+
+      let tbody = document.createElement("tbody");
+      json.forEach((student, index) => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+          <th scope="row">${index + 1}</th>
+          <td>${student.first_name}</td>
+          <td>${student.last_name}</td>
+          <td>${student.email}</td>
+          <td>${student.faculty}</td>
+          <td>${student.department}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+    }
+
+    async function checkEnrollmentStatus() {
+      const courseId = Utils.get_from_localstorage("course").id;
+      const userId = Utils.get_from_localstorage("user").id;
+
+      try {
+        const response = await fetch(
+          `http://localhost/SEProject/backend/enrollments/check?course_id=${courseId}&student_id=${userId}`,
+          {
+            method: "GET",
+            cache: "no-store" // Disable caching
+          }
+        );
+
+        const isEnrolled = await response.json();
+        console.log("IsEnrolled:", isEnrolled.enrolled);
+        Utils.set_to_localstorage("course", {
+          id: Utils.get_from_localstorage("course").id,
+          title: Utils.get_from_localstorage("course").title,
+          professor: Utils.get_from_localstorage("course").professor,
+          department: Utils.get_from_localstorage("course").department,
+          isEnrolled: isEnrolled.enrolled === 0 ? false : true,
+        });
+        
+        updateEnrollButton(Utils.get_from_localstorage("course").isEnrolled);
+        return isEnrolled;
+      } catch (error) {
+        console.error("Error checking enrollment status:", error);
+        updateEnrollButton(false);
+        return false;
+      }
+    }
+
+    function updateEnrollButton(isEnrolled) {
+      const enrollBtn = document.getElementById("enroll-btn");
+
+      const newBtn = enrollBtn.cloneNode(true);
+      enrollBtn.parentNode.replaceChild(newBtn, enrollBtn);
+
+      if (isEnrolled) {
+        newBtn.textContent = "Unenroll";
+        newBtn.addEventListener("click", unenrollStudent);
+      } else {
+        newBtn.textContent = "Enroll";
+        newBtn.addEventListener("click", enrollStudent);
+      }
+    }
+
+    function enrollStudent() {
+      const course = Utils.get_from_localstorage("course");
+      const user = Utils.get_from_localstorage("user");
+
+      RestClient.post(
+        "backend/enrollments/enroll",
+        { course_id: course.id, student_id: user.id },
+        function () {
+          toastr.success("Enrolled successfully!");
+          updateEnrollButton(true);
+          getEnrolledStudents();
+          Utils.set_to_localstorage("course", { ...course, isEnrolled: true });
+        },
+        function () {
+          toastr.error("Failed to enroll. Please try again.");
+        }
+      );
+    }
+
+    function unenrollStudent() {
+      const course = Utils.get_from_localstorage("course");
+      const user = Utils.get_from_localstorage("user");
+
+      RestClient.post(
+        "backend/enrollments/unenroll",
+        { course_id: course.id, student_id: user.id },
+        function () {
+          toastr.success("Unenrolled successfully!");
+          updateEnrollButton(false);
+          getEnrolledStudents();
+          Utils.set_to_localstorage("course", { ...course, isEnrolled: false });
+        },
+        function () {
+          toastr.error("Failed to unenroll. Please try again.");
+        }
+      );
+    }
+
+    
+
     let contactInfoBtn = document.getElementById("contactInfo");
     contactInfoBtn.addEventListener("click", () => {
       getContactInfo();
@@ -216,8 +370,6 @@
         response.sort((a, b) => a.title.localeCompare(b.title));
         lectures = response;
 
-        console.log("Lectures:", lectures);
-
         const lecturesDiv = document.getElementById("lectures");
         lecturesDiv.innerHTML = "";
 
@@ -266,13 +418,11 @@
       const title = $("#lectureTitle").val();
       const content = $("#lectureContent").val();
 
-      // Validate if title and content are not empty
       if (!title.trim() || !content.trim()) {
         alert("Please enter both title and content.");
         return;
       }
 
-      // Prepare the data to be sent in the POST request
       const newLectureData = {
         id: "",
         course_id: Utils.get_from_localstorage("course").id,
@@ -281,14 +431,12 @@
         announcements: "",
       };
 
-      // Send a POST request to add the new lecture
       RestClient.post(
         "backend/materials/add",
         newLectureData,
         function (response) {
           fetchAndDisplayLectures();
 
-          // Close the modal after adding the lecture
           $("#addLectureModal").modal("hide");
 
           toastr.success("Added lecture sucessfully!");
@@ -328,7 +476,6 @@
           response.sort((a, b) => a.title.localeCompare(b.title));
 
           lectures = response;
-          console.log("Lectures:", lectures);
 
           // Iterate over each lecture in the response and append it to the UI
           response.forEach((lecture, index) => {

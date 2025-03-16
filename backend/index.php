@@ -9,7 +9,8 @@ require 'rest/routes/student_routes.php';
 require 'rest/routes/professor_routes.php';
 require 'rest/routes/book_routes.php';
 require 'rest/routes/material_routes.php';
+require 'rest/routes/enrollment_routes.php';
 require 'rest/routes/auth_routes.php';
-require 'rest/routes/middleware_routes.php';
+// require 'rest/routes/middleware_routes.php';
 
 Flight::start();
